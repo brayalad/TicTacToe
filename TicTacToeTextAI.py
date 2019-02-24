@@ -1,7 +1,6 @@
 import random
 
 gameBoard = None
-runLoop = 1
 playerVariable = None
 computerVariable = None
 
@@ -97,7 +96,7 @@ def checkGameOver():
         if count == 0:
             printBoard()
             print("\nTIE")
-            print("GAME OVER")
+            print("GAME OVER\n")
             gameOver()
 
 def winner(player):
@@ -106,7 +105,7 @@ def winner(player):
         print("\nYOU WIN")
     elif player == computerVariable:
         print("\nK.A.R.E.N WINS")
-    print("GAMEOVER")
+    print("GAMEOVER\n")
     gameOver()
 
 #########################################################################################################
@@ -341,7 +340,7 @@ def startGame(firstTurn):
 
     if firstTurn == 0:
         printBoard()
-        while runLoop == 1:
+        while True:
             playerTurn()
             #printBoard()
             checkGameOver()
@@ -349,7 +348,7 @@ def startGame(firstTurn):
             checkGameOver()
             printBoard()
     elif firstTurn == 1:
-        while runLoop == 1:
+        while True:
             computerTurn()
             checkGameOver()
             printBoard()
@@ -361,7 +360,7 @@ def initalizeGame():
     global gameBoard
     gameBoard = [["*","*","*"], ["*","*","*"],["*","*","*"]] 
 
-    print("Here are the rules:")
+    print("\nHere are the rules:")
     print(" You will be playing against the AI known as K.A.R.E.N.")
     print(" The first turn will be chosen at random.")
     print(" 3 of your symbols must be placeed together inorder to win.")
@@ -387,14 +386,17 @@ def startNewGame():
     if choice == 1:
         initalizeGame()
     elif choice == 2:
-        print("Thank you for playing!")
+        print("Thank you for playing!\n")
         exit()
+    else:
+        print("\nInvalid Option.\nPlease Try Again.\n")
+        startNewGame()
 
 def gameOver():
     startNewGame()
 
 def main():
-    print("\nWelcome To Tic-Tac-Toe!\n")
+    print("\nWelcome To Tic-Tac-Toe!\nAI Edition\n")
     startNewGame()
 
 main()

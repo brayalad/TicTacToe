@@ -1,12 +1,20 @@
-gameBoard =[["*","*","*"], ["*","*","*"],["*","*","*"]]
+gameBoard = None
 runLoop = 1
 
 def printBoard():
+    rowString = ["R","O","W"]
+    rowCount = 0
+
     print("")
+    print("      C   O   L")
+    print("      1   2   3")
+    print("    - - - - - - -")
     for row in gameBoard:
+        print(rowString[rowCount]+" "+str((rowCount+1)), end=" | ")
+        rowCount += 1
         for column in row:
-            print(column, end = " ")
-        print("")
+            print(column, end=" | ")
+        print("\n    - - - - - - -")
 
 def playerTurn(player):
     if player == 1:
@@ -68,18 +76,53 @@ def checkGameOver():
                 if gameBoard[x][y] == "*":
                     count = 1
         if count == 0:
-            print("TIE")
-            print("GAME OVER")
-            exit()
+            print("\nTIE")
+            print("GAME OVER\n")
+            gameOver()
 
 def winner(player):
-    print("PLAYER " + player + " WINS")
-    print("GAMEOVER")
-    exit()
+    if player == "X":
+        print("\nPLAYER ONE WINS")
+    elif player == "O":
+        print("\nPLAYER TWO WINS")
+    print("GAMEOVER\n")
+    gameOver()
+
+def initalizeGame():
+    global gameBoard
+    gameBoard = [["*","*","*"], ["*","*","*"],["*","*","*"]] 
+
+    print("\nHere are the rules:")
+    print(" You will be playing eachother until a winner is determined.")
+    print(" 3 of your symbols must be placeed together inorder to win.")
+    print(" Symbols can be placed by row, columns, or diagonaly.")
+    print(" Rows go from left to right. Columns from top to down.")
+    print(" First to 3 symbols placed together wins")
+    print("\nLet The Game Begin!\n")
+
+    startGame()
+
+def startNewGame():
+    print("Would you like to start a new game?")
+    print(" 1. Yes")
+    print(" 2. No")
+    choice = int(input("Enter choice: "))
+
+    if choice == 1:
+        initalizeGame()
+    elif choice == 2:
+        print("Thank you for playing!\n")
+        exit()
+    else:
+        print("\nInvalid Option.\nPlease Try Again.\n")
+        startNewGame()
+
+def gameOver():
+    startNewGame()
 
 def startGame():
     printBoard()
-    while runLoop == 1:
+    while True:
         playerTurn(1)
         printBoard()
         checkGameOver()
@@ -87,5 +130,9 @@ def startGame():
         printBoard()
         checkGameOver()
 
-startGame()
+def main():
+    print("\nWelcome To Tic-Tac-Toe!\nTwo-Player Edition\n")
+    startNewGame()
+
+main()
 
