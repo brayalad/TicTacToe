@@ -2,18 +2,19 @@ from tkinter import *
 from tkinter import messagebox
 window=Tk()
 gameBoard =[["*","*","*"], ["*","*","*"],["*","*","*"]]
-playerValue = "X"
-computerValue = "O"
 
 window.title("Tic Tac Toe ")
-window.geometry("500x400")
+window.geometry("350x200")
 
-lbl=Label(window,text="Tic-tac-toe Game",font=('Helvetica','15'))
+gameFrame = Frame(window)
+
+lbl=Label(gameFrame,text="Tic-Tac-Toe Two-Player",font=('Helvetica','15'))
 lbl.grid(row=0,column=0)
-lbl=Label(window,text="Player 1: X",font=('Helvetica','10'))
+lbl=Label(gameFrame,text="Player 1: X",font=('Helvetica','10'))
 lbl.grid(row=1,column=0)
-lbl=Label(window,text="Player 2: O",font=('Helvetica','10'))
+lbl=Label(gameFrame,text="Player 2: O",font=('Helvetica','10'))
 lbl.grid(row=2,column=0)
+
 
 turn=1 #For first person turn.
 
@@ -125,9 +126,12 @@ def clicked9():
             gameBoard[2][2]="O"
             bottomRight["text"]=gameBoard[2][2]
         check()
-flag = 1
+tieFlag = 1
 def check():
-    global flag
+    window.update()
+
+    global tieFlag
+
     topLeftValue = gameBoard[0][0]
     topMiddleValue = gameBoard[0][1]
     topRightValue = gameBoard[0][2]
@@ -137,54 +141,60 @@ def check():
     bottomLeftValue = gameBoard[2][0]
     bottomMiddleValue = gameBoard[2][1]
     bottomRightValue = gameBoard[2][2]
-    flag=flag+1
+    tieFlag=tieFlag+1
     if topLeftValue==topMiddleValue and topLeftValue==topRightValue and topLeftValue=="O" or topLeftValue==topMiddleValue and topLeftValue==topRightValue and topLeftValue=="X":
         win(topLeft["text"])
-    if centerLeftValue==centerMiddleValue and centerLeftValue==centerRightValue and centerLeftValue=="O" or centerLeftValue==centerMiddleValue and centerLeftValue==centerRightValue and centerLeftValue=="X":
+    elif centerLeftValue==centerMiddleValue and centerLeftValue==centerRightValue and centerLeftValue=="O" or centerLeftValue==centerMiddleValue and centerLeftValue==centerRightValue and centerLeftValue=="X":
         win(centerLeft["text"])
-    if bottomLeftValue==bottomMiddleValue and bottomLeftValue==bottomRightValue and bottomLeftValue=="O" or bottomLeftValue==bottomMiddleValue and bottomLeftValue==bottomRightValue and bottomLeftValue=="X":
+    elif bottomLeftValue==bottomMiddleValue and bottomLeftValue==bottomRightValue and bottomLeftValue=="O" or bottomLeftValue==bottomMiddleValue and bottomLeftValue==bottomRightValue and bottomLeftValue=="X":
         win(bottomLeft["text"])
-    if topLeftValue==centerLeftValue and topLeftValue==bottomLeftValue and topLeftValue=="O" or topLeftValue==centerLeftValue and topLeftValue==bottomLeftValue and topLeftValue=="X":
+    elif topLeftValue==centerLeftValue and topLeftValue==bottomLeftValue and topLeftValue=="O" or topLeftValue==centerLeftValue and topLeftValue==bottomLeftValue and topLeftValue=="X":
         win(topLeft["text"])
-    if topMiddleValue==centerMiddleValue and topMiddleValue==bottomMiddleValue and topMiddleValue=="O" or topMiddleValue==centerMiddleValue and topMiddleValue==bottomMiddleValue and topMiddleValue=="X":
+    elif topMiddleValue==centerMiddleValue and topMiddleValue==bottomMiddleValue and topMiddleValue=="O" or topMiddleValue==centerMiddleValue and topMiddleValue==bottomMiddleValue and topMiddleValue=="X":
         win(topMiddle["text"])
-    if topRightValue==centerRightValue and topRightValue==bottomRightValue and topRightValue=="O" or topRightValue==centerRightValue and topRightValue==bottomRightValue and topRightValue=="X":
+    elif topRightValue==centerRightValue and topRightValue==bottomRightValue and topRightValue=="O" or topRightValue==centerRightValue and topRightValue==bottomRightValue and topRightValue=="X":
         win(topRight["text"])
-    if topLeftValue==centerMiddleValue and topLeftValue==bottomRightValue and topLeftValue=="O" or topLeftValue==centerMiddleValue and topLeftValue==bottomRightValue and topLeftValue=="X":
+    elif topLeftValue==centerMiddleValue and topLeftValue==bottomRightValue and topLeftValue=="O" or topLeftValue==centerMiddleValue and topLeftValue==bottomRightValue and topLeftValue=="X":
         win(topLeft["text"])
-    if bottomLeftValue==centerMiddleValue and bottomLeftValue==topRightValue and bottomLeftValue=="O" or bottomLeftValue==centerMiddleValue and bottomLeftValue==topRightValue and bottomLeftValue=="X":
+    elif bottomLeftValue==centerMiddleValue and bottomLeftValue==topRightValue and bottomLeftValue=="O" or bottomLeftValue==centerMiddleValue and bottomLeftValue==topRightValue and bottomLeftValue=="X":
         win(bottomLeft["text"])
-    if flag ==10:
-        messagebox.showinfo("Tie", "Match Tied!!!  Try again :)")
-        window.destroy()
+    else:
+        if tieFlag==10:
+            messagebox.showinfo("Tie", "Match Tied!!!  Try again :)")
+            window.destroy()
 
 def win(player):
-    ans = "Game complete " + player + " wins "
-    messagebox.showinfo("Congratulations", ans)
+    winner = None
+    if player == "X":
+        winner = "PLAYER 1 WINS"
+    elif player == "O":
+        winner = "PLAYER 2 WINS"
+    messagebox.showinfo("Congratulations", winner)
     window.destroy()  # is used to close the program
 
 
-topLeft = Button(window, text=" ",bg="blue", fg="Black",width=3,height=1,font=('Helvetica','20'),command=clicked1)
+topLeft = Button(gameFrame, text=" ",bg="blue", fg="Black",width=3,height=1,font=('Helvetica','20'),command=clicked1)
 topLeft.grid(column=1, row=1)
-topMiddle = Button(window, text=" ",bg="blue", fg="Black",width=3,height=1,font=('Helvetica','20'),command=clicked2)
+topMiddle = Button(gameFrame, text=" ",bg="blue", fg="Black",width=3,height=1,font=('Helvetica','20'),command=clicked2)
 topMiddle.grid(column=2, row=1)
-topRight = Button(window, text=" ",bg="blue", fg="Black",width=3,height=1,font=('Helvetica','20'),command=clicked3)
+topRight = Button(gameFrame, text=" ",bg="blue", fg="Black",width=3,height=1,font=('Helvetica','20'),command=clicked3)
 topRight.grid(column=3, row=1)
-centerLeft = Button(window, text=" ",bg="blue", fg="Black",width=3,height=1,font=('Helvetica','20'),command=clicked4)
+centerLeft = Button(gameFrame, text=" ",bg="blue", fg="Black",width=3,height=1,font=('Helvetica','20'),command=clicked4)
 centerLeft.grid(column=1, row=2)
-centerMiddle = Button(window, text=" ",bg="blue", fg="Black",width=3,height=1,font=('Helvetica','20'),command=clicked5)
+centerMiddle = Button(gameFrame, text=" ",bg="blue", fg="Black",width=3,height=1,font=('Helvetica','20'),command=clicked5)
 centerMiddle.grid(column=2, row=2)
-centerRight = Button(window, text=" ",bg="blue", fg="Black",width=3,height=1,font=('Helvetica','20'),command=clicked6)
+centerRight = Button(gameFrame, text=" ",bg="blue", fg="Black",width=3,height=1,font=('Helvetica','20'),command=clicked6)
 centerRight.grid(column=3, row=2)
-bottomLeft = Button(window, text=" ",bg="blue", fg="Black",width=3,height=1,font=('Helvetica','20'),command=clicked7)
+bottomLeft = Button(gameFrame, text=" ",bg="blue", fg="Black",width=3,height=1,font=('Helvetica','20'),command=clicked7)
 bottomLeft.grid(column=1, row=3)
-bottomMiddle = Button(window, text=" ",bg="blue", fg="Black",width=3,height=1,font=('Helvetica','20'),command=clicked8)
+bottomMiddle = Button(gameFrame, text=" ",bg="blue", fg="Black",width=3,height=1,font=('Helvetica','20'),command=clicked8)
 bottomMiddle.grid(column=2, row=3)
-bottomRight = Button(window, text=" ",bg="blue", fg="Black",width=3,height=1,font=('Helvetica','20'),command=clicked9)
+bottomRight = Button(gameFrame, text=" ",bg="blue", fg="Black",width=3,height=1,font=('Helvetica','20'),command=clicked9)
 bottomRight.grid(column=3, row=3)
 
 
 def startGame():
+    gameFrame.pack(expand=True)
     window.mainloop()
 
 startGame()
