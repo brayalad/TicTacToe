@@ -1,3 +1,6 @@
+#One player game of Tic-Tac-Toe where each player plays
+#against an AI. Uses a console text interface.
+
 import random #Used to generate random variables
 
 gameBoard = None #Variable to hold the grid representing the game board

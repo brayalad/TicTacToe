@@ -1,4 +1,3 @@
-
 #This program is a game of Tic-Tac-Toe
 #This is the begining menu for the user to decide which edition
 #of the Tic-Tac-Toe Game they would like to play. 
@@ -26,7 +25,7 @@ def beginProgram():
     elif answer == 4:
         import TicTacToeGUIAI
     else:
-        print("Invalid Input")
+        print("\nInvalid Input")
         print("Please Try Again")
         beginProgram()
 

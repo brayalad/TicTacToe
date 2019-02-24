@@ -1,3 +1,6 @@
+#One player game of Tic-Tac-Toe where each player plays
+#against an AI. Uses a graphical user interface.
+
 import random #Used to generate random variables
 from tkinter import * #Used to create the Graphical User Interface
 from tkinter import messagebox

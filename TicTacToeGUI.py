@@ -1,3 +1,6 @@
+#Two player game of Tic-Tac-Toe where each player gets a 
+#turn after the other. Uses a graphical user interface
+
 from tkinter import * #Used to create the Graphical User Interface
 from tkinter import messagebox
 window=Tk() #Window that will hold the game

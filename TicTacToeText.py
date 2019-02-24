@@ -1,3 +1,6 @@
+#Two player game of Tic-Tac-Toe where each player gets a 
+#turn after the other. Uses a console text interface
+
 gameBoard = None #Grid that represents the game board
 
 #Prints out the game board to the console
