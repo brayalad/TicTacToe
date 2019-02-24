@@ -2,6 +2,8 @@ from tkinter import *
 from tkinter import messagebox
 window=Tk()
 gameBoard =[["*","*","*"], ["*","*","*"],["*","*","*"]]
+playerValue = "X"
+computerValue = "O"
 
 window.title("Tic Tac Toe ")
 window.geometry("500x400")
@@ -13,7 +15,7 @@ lbl.grid(row=1,column=0)
 lbl=Label(window,text="Player 2: O",font=('Helvetica','10'))
 lbl.grid(row=2,column=0)
 
-turn=1; #For first person turn.
+turn=1 #For first person turn.
 
 def clicked1():
     global turn
@@ -126,38 +128,38 @@ def clicked9():
 flag = 1
 def check():
     global flag
-    tL = gameBoard[0][0]
-    tM = gameBoard[0][1]
-    tR = gameBoard[0][2]
-    cL = gameBoard[1][0]
-    cM = gameBoard[1][1]
-    cR = gameBoard[1][2]
-    bL = gameBoard[2][0]
-    bM = gameBoard[2][1]
-    bR = gameBoard[2][2]
+    topLeftValue = gameBoard[0][0]
+    topMiddleValue = gameBoard[0][1]
+    topRightValue = gameBoard[0][2]
+    centerLeftValue = gameBoard[1][0]
+    centerMiddleValue = gameBoard[1][1]
+    centerRightValue = gameBoard[1][2]
+    bottomLeftValue = gameBoard[2][0]
+    bottomMiddleValue = gameBoard[2][1]
+    bottomRightValue = gameBoard[2][2]
     flag=flag+1
-    if tL==tM and tL==tR and tL=="O" or tL==tM and tL==tR and tL=="X":
+    if topLeftValue==topMiddleValue and topLeftValue==topRightValue and topLeftValue=="O" or topLeftValue==topMiddleValue and topLeftValue==topRightValue and topLeftValue=="X":
         win(topLeft["text"])
-    if cL==cM and cL==cR and cL=="O" or cL==cM and cL==cR and cL=="X":
+    if centerLeftValue==centerMiddleValue and centerLeftValue==centerRightValue and centerLeftValue=="O" or centerLeftValue==centerMiddleValue and centerLeftValue==centerRightValue and centerLeftValue=="X":
         win(centerLeft["text"])
-    if bL==bM and bL==bR and bL=="O" or bL==bM and bL==bR and bL=="X":
+    if bottomLeftValue==bottomMiddleValue and bottomLeftValue==bottomRightValue and bottomLeftValue=="O" or bottomLeftValue==bottomMiddleValue and bottomLeftValue==bottomRightValue and bottomLeftValue=="X":
         win(bottomLeft["text"])
-    if tL==cL and tL==bL and tL=="O" or tL==cL and tL==bL and tL=="X":
+    if topLeftValue==centerLeftValue and topLeftValue==bottomLeftValue and topLeftValue=="O" or topLeftValue==centerLeftValue and topLeftValue==bottomLeftValue and topLeftValue=="X":
         win(topLeft["text"])
-    if tM==cM and tM==bM and tM=="O" or tM==cM and tM==bM and tM=="X":
+    if topMiddleValue==centerMiddleValue and topMiddleValue==bottomMiddleValue and topMiddleValue=="O" or topMiddleValue==centerMiddleValue and topMiddleValue==bottomMiddleValue and topMiddleValue=="X":
         win(topMiddle["text"])
-    if tR==cR and tR==bR and tR=="O" or tR==cR and tR==bR and tR=="X":
+    if topRightValue==centerRightValue and topRightValue==bottomRightValue and topRightValue=="O" or topRightValue==centerRightValue and topRightValue==bottomRightValue and topRightValue=="X":
         win(topRight["text"])
-    if tL==cM and tL==bR and tL=="O" or tL==cM and tL==bR and tL=="X":
+    if topLeftValue==centerMiddleValue and topLeftValue==bottomRightValue and topLeftValue=="O" or topLeftValue==centerMiddleValue and topLeftValue==bottomRightValue and topLeftValue=="X":
         win(topLeft["text"])
-    if bL==cM and bL==tR and bL=="O" or bL==cM and bL==tR and bL=="X":
+    if bottomLeftValue==centerMiddleValue and bottomLeftValue==topRightValue and bottomLeftValue=="O" or bottomLeftValue==centerMiddleValue and bottomLeftValue==topRightValue and bottomLeftValue=="X":
         win(bottomLeft["text"])
     if flag ==10:
         messagebox.showinfo("Tie", "Match Tied!!!  Try again :)")
         window.destroy()
 
 def win(player):
-    ans = "Game complete " +player + " wins ";
+    ans = "Game complete " + player + " wins "
     messagebox.showinfo("Congratulations", ans)
     window.destroy()  # is used to close the program
 
