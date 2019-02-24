@@ -1,16 +1,17 @@
-import random
-from tkinter import *
+import random #Used to generate random variables
+from tkinter import * #Used to create the Graphical User Interface
 from tkinter import messagebox
 window=Tk()
-gameBoard =[["*","*","*"], ["*","*","*"],["*","*","*"]]
-playerVariable = "X"
-computerVariable = "O"
+gameBoard =[["*","*","*"], ["*","*","*"],["*","*","*"]] #Grid representing the game board
+playerVariable = "X" #Player's value on grid
+computerVariable = "O" #AI's value on gird 
 
 window.title("Tic Tac Toe ")
 window.geometry("350x200")
 
 gameFrame = Frame(window)
 
+#Initalizing area around game board
 lbl=Label(gameFrame,text="Tic-Tac-Toe AI",font=('Helvetica','15'))
 lbl.grid(row=0,column=0)
 lbl=Label(gameFrame,text="Player: " + playerVariable,font=('Helvetica','10'))
@@ -20,6 +21,7 @@ lbl.grid(row=2,column=0)
 
 turn=1 #For first person turn.
 
+#Called when top left button is clicked
 def clicked1():
     global turn
     if gameBoard[0][0]=="*":   #For getting the text of a button
@@ -34,6 +36,7 @@ def clicked1():
             gameBoard[0][0]=computerVariable
             topLeftBox["text"]=gameBoard[0][0]
             check()
+#Called when top middle button is clicked
 def clicked2():
     global turn
     if gameBoard[0][1]=="*":
@@ -48,6 +51,7 @@ def clicked2():
             gameBoard[0][1]=computerVariable
             topMiddleBox["text"]=gameBoard[0][1]
             check()
+#Called when top right button is clicked
 def clicked3():
     global turn
     if gameBoard[0][2]=="*":
@@ -62,6 +66,7 @@ def clicked3():
             gameBoard[0][2]=computerVariable
             topRightBox["text"]=gameBoard[0][2]
             check()
+#Called when center left button is clicked
 def clicked4():
     global turn
     if gameBoard[1][0]=="*":
@@ -76,6 +81,7 @@ def clicked4():
             gameBoard[1][0]=computerVariable
             centerLeftBox["text"]=gameBoard[1][0]
             check()
+#Called when center middle button is clicked
 def clicked5():
     global turn
     if gameBoard[1][1]=="*":
@@ -90,6 +96,7 @@ def clicked5():
             gameBoard[1][1]=computerVariable
             centerMiddleBox["text"]=gameBoard[1][1]
             check()
+#Called when center right button is clicked
 def clicked6():
     global turn
     if gameBoard[1][2]=="*":
@@ -104,6 +111,7 @@ def clicked6():
             gameBoard[1][2]=computerVariable
             centerRightBox["text"]=gameBoard[1][2]
             check()
+#Called when bottom left button is clicked
 def clicked7():
     global turn
     if gameBoard[2][0]=="*":
@@ -118,6 +126,7 @@ def clicked7():
             gameBoard[2][0]=computerVariable
             bottomLeftBox["text"]=gameBoard[2][0]
             check()
+#Called when bottom middle button is clicked
 def clicked8():
     global turn
     if gameBoard[2][1]=="*":
@@ -132,6 +141,7 @@ def clicked8():
             gameBoard[2][1]=computerVariable
             bottomMiddleBox["text"]=gameBoard[2][1]
             check()
+#Called when bottom right button is clicked
 def clicked9():
     global turn
     if gameBoard[2][2]=="*":
@@ -146,7 +156,8 @@ def clicked9():
             gameBoard[2][2]=computerVariable
             bottomRightBox["text"]=gameBoard[2][2]
             check()
-tieFlag = 1
+tieFlag = 1 #Global variable to check if board is filled and used to determine a tie
+#Function that checks if a player has won the game
 def check():
     window.update()
 
@@ -162,20 +173,29 @@ def check():
     bottomMiddleValue = gameBoard[2][1]
     bottomRightValue = gameBoard[2][2]
     tieFlag=tieFlag+1
+    
+    #checks top row
     if topLeftValue==topMiddleValue and topLeftValue==topRightValue and topLeftValue=="O" or topLeftValue==topMiddleValue and topLeftValue==topRightValue and topLeftValue=="X":
         win(topLeftBox["text"])
+    #checks center row
     elif centerLeftValue==centerMiddleValue and centerLeftValue==centerRightValue and centerLeftValue=="O" or centerLeftValue==centerMiddleValue and centerLeftValue==centerRightValue and centerLeftValue=="X":
         win(centerLeftBox["text"])
+    #checks bottom row
     elif bottomLeftValue==bottomMiddleValue and bottomLeftValue==bottomRightValue and bottomLeftValue=="O" or bottomLeftValue==bottomMiddleValue and bottomLeftValue==bottomRightValue and bottomLeftValue=="X":
         win(bottomLeftBox["text"])
+    #checks left column
     elif topLeftValue==centerLeftValue and topLeftValue==bottomLeftValue and topLeftValue=="O" or topLeftValue==centerLeftValue and topLeftValue==bottomLeftValue and topLeftValue=="X":
         win(topLeftBox["text"])
+    #checks middle column
     elif topMiddleValue==centerMiddleValue and topMiddleValue==bottomMiddleValue and topMiddleValue=="O" or topMiddleValue==centerMiddleValue and topMiddleValue==bottomMiddleValue and topMiddleValue=="X":
         win(topMiddleBox["text"])
+    #checks right column
     elif topRightValue==centerRightValue and topRightValue==bottomRightValue and topRightValue=="O" or topRightValue==centerRightValue and topRightValue==bottomRightValue and topRightValue=="X":
         win(topRightBox["text"])
+    #checks left to right diagonal
     elif topLeftValue==centerMiddleValue and topLeftValue==bottomRightValue and topLeftValue=="O" or topLeftValue==centerMiddleValue and topLeftValue==bottomRightValue and topLeftValue=="X":
         win(topLeftBox["text"])
+    #checks right to left diagonal
     elif bottomLeftValue==centerMiddleValue and bottomLeftValue==topRightValue and bottomLeftValue=="O" or bottomLeftValue==centerMiddleValue and bottomLeftValue==topRightValue and bottomLeftValue=="X":
         win(bottomLeftBox["text"])
     else:
@@ -183,6 +203,7 @@ def check():
             messagebox.showinfo("Tie", "Match Tied!!!  Try again :)")
             window.destroy()
 
+#Prints out the winner of the game to the screen
 def win(winner):
     win = None
     if winner == playerVariable:
@@ -192,12 +213,12 @@ def win(winner):
     messagebox.showinfo("GAME OVER", win)
     window.destroy()  # is used to close the program
 
-#########################################################################################################
+#This is the function that holds the algorithim that allows the AI to choose its move 
 def computerTurn():
     global turn
     #print(turn)
 
-    turnTaken = 0
+    turnTaken = 0 #variable to determine of turn has been taken
 
     topLeft = gameBoard[0][0]
     topMiddle = gameBoard[0][1]
@@ -209,7 +230,7 @@ def computerTurn():
     bottomMiddle = gameBoard[2][1]
     bottomRight = gameBoard[2][2]
 
-    #Check for Winning Move **************************
+    #Check for Winning Move 
     if turnTaken == 0:
         #Check Left Column
         if topLeft==computerVariable and topLeft==centerLeft and bottomLeft=="*":
@@ -291,10 +312,10 @@ def computerTurn():
         elif centerMiddle==computerVariable and centerMiddle==bottomLeft and topRight=="*":
             turnTaken=1
             clicked3()
-        if turnTaken == 1:
-            print("Win move taken")
+        #if turnTaken == 1:
+            #print("Win move taken")
 
-    #Check for Blocking Win Move **********************************
+    #Check for Blocking User Win Move 
     if turnTaken == 0:
         #Check Left Column
         if topLeft==playerVariable and topLeft==centerLeft and bottomLeft=="*":
@@ -376,8 +397,8 @@ def computerTurn():
         elif centerMiddle==playerVariable and centerMiddle==bottomLeft and topRight=="*":
             turnTaken=1
             clicked3()
-        if turnTaken == 1:
-            print("Block move taken")
+        #if turnTaken == 1:
+            #print("Block move taken")
 
     #Checking for a Corner move
     if turnTaken == 0:
@@ -399,7 +420,7 @@ def computerTurn():
                     clicked7()
                 elif possibleCorner[0] == 2 and possibleCorner[1] == 2:
                     clicked9()
-                print("Corner move taken")
+                #print("Corner move taken")
                 break
             
     #Checking for Center move
@@ -407,7 +428,7 @@ def computerTurn():
         if centerMiddle == "*":
             turnTaken=1
             clicked5()
-            print("Center move taken")
+            #print("Center move taken")
     
     #Checking for Side moves
     if turnTaken == 0:
@@ -428,10 +449,10 @@ def computerTurn():
                     clicked6()
                 elif possibleSide[0] == 2 and possibleSide[1] == 1:
                     clicked8()
-                print("Side move taken")
+                #print("Side move taken")
                 break
 
-
+#Initalizes the buttons that represent the game board in a grid on the GUI window
 topLeftBox = Button(gameFrame, text=" ",bg="blue", fg="Black",width=3,height=1,font=('Helvetica','20'),command=clicked1)
 topLeftBox.grid(column=1, row=1)
 topMiddleBox = Button(gameFrame, text=" ",bg="blue", fg="Black",width=3,height=1,font=('Helvetica','20'),command=clicked2)
@@ -451,9 +472,9 @@ bottomMiddleBox.grid(column=2, row=3)
 bottomRightBox = Button(gameFrame, text=" ",bg="blue", fg="Black",width=3,height=1,font=('Helvetica','20'),command=clicked9)
 bottomRightBox.grid(column=3, row=3)
 
-
+#Function that runs game in a loop until the game is over
 def startGame():
     gameFrame.pack()
     window.mainloop()
 
-startGame()
+startGame()#Starts the game

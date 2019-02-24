@@ -1,10 +1,10 @@
-import random
+import random #Used to generate random variables
 
-gameBoard = None
-playerVariable = None
-computerVariable = None
+gameBoard = None #Variable to hold the grid representing the game board
+playerVariable = None #Variable that represents the player
+computerVariable = None #Variable that represents the AI
 
-
+#Prints the game board to the console
 def printBoard():
     rowString = ["R","O","W"]
     rowCount = 0
@@ -20,6 +20,7 @@ def printBoard():
             print(column, end=" | ")
         print("\n    - - - - - - -")
 
+#Allows the user to choose what symbol they wish to play as. Either "X" or "O"
 def choosePlayingSymbol():
     global playerVariable
     global computerVariable
@@ -39,7 +40,7 @@ def choosePlayingSymbol():
         print("Invalid Option.\nPlease Try Again.")
         choosePlayingSymbol()
 
-
+#Functions that allows the player to take their turn 
 def playerTurn():
     print("\nYour Turn")
 
@@ -61,6 +62,7 @@ def playerTurn():
         printBoard()
         playerTurn()
 
+#Function that checks if the game is over and someone has won
 def checkGameOver():
     tL = gameBoard[0][0]
     tM = gameBoard[0][1]
@@ -71,20 +73,28 @@ def checkGameOver():
     bL = gameBoard[2][0]
     bM = gameBoard[2][1]
     bR = gameBoard[2][2]
+    #Checks top row
     if tL==tM and tL==tR and tL=="O" or tL==tM and tL==tR and tL=="X":
         winner(tL)
+    #Checks center row
     elif cL==cM and cL==cR and cL=="O" or cL==cM and cL==cR and cL=="X":
         winner(cL)
+    #Checks bottom row
     elif bL==bM and bL==bR and bL=="O" or bL==bM and bL==bR and bL=="X":
         winner(bL)
+    #Checks left column
     elif tL==cL and tL==bL and tL=="O" or tL==cL and tL==bL and tL=="X":
         winner(tL)
+    #Checks middle column
     elif tM==cM and tM==bM and tM=="O" or tM==cM and tM==bM and tM=="X":
         winner(tM)
+    #Checks right column
     elif tR==cR and tR==bR and tR=="O" or tR==cR and tR==bR and tR=="X":
         winner(tR)
+    #Checks left to right diagonal
     elif tL==cM and tL==bR and tL=="O" or tL==cM and tL==bR and tL=="X":
         winner(tL)
+    #Checks right to left diagonal
     elif bL==cM and bL==tR and bL=="O" or bL==cM and bL==tR and bL=="X":
         winner(bL)
     else: 
@@ -99,6 +109,7 @@ def checkGameOver():
             print("GAME OVER\n")
             gameOver()
 
+#Called when a winner is determined and ends the game
 def winner(player):
     printBoard()
     if player == playerVariable:
@@ -108,9 +119,9 @@ def winner(player):
     print("GAMEOVER\n")
     gameOver()
 
-#########################################################################################################
+#This is the function that holds the algorithim that allows the AI to choose its move 
 def computerTurn():
-    turnTaken = 0
+    turnTaken = 0 #variable to determine if turn has been taken
 
     topLeft = gameBoard[0][0]
     topMiddle = gameBoard[0][1]
@@ -122,7 +133,7 @@ def computerTurn():
     bottomMiddle = gameBoard[2][1]
     bottomRight = gameBoard[2][2]
 
-    #Check for Winning Move **************************
+    #Check for a winning move
     if turnTaken == 0:
         #Check Left Column
         if topLeft==computerVariable and topLeft==centerLeft and bottomLeft=="*":
@@ -207,7 +218,7 @@ def computerTurn():
         #if turnTaken == 1:
             #print("Win move taken")
 
-    #Check for Blocking Win Move **********************************
+    #Checks for a winning move by the user and blocks it
     if turnTaken == 0:
         #Check Left Column
         if topLeft==playerVariable and topLeft==centerLeft and bottomLeft=="*":
@@ -292,7 +303,7 @@ def computerTurn():
         #if turnTaken == 1:
             #print("Block move taken")
 
-    #Checking for a Corner move
+    #Randomly chooses a corner spot, if available 
     if turnTaken == 0:
         possible_corners = [[0,0],[0,2],[2,0],[2,2]]
         random.shuffle(possible_corners)
@@ -307,14 +318,14 @@ def computerTurn():
                 #print("Corner move taken")
                 break
             
-    #Checking for Center move
+    #Chooses the center spot, if available
     if turnTaken == 0:
         if centerMiddle == "*":
             gameBoard[1][1] = computerVariable
             turnTaken=1
             #print("Center move taken")
     
-    #Checking for Side moves
+    #Randomly chooses a side spot, if available
     if turnTaken == 0:
         possible_sides = [[0,1],[1,0],[1,2],[2,1]]
         random.shuffle(possible_sides)
@@ -328,14 +339,13 @@ def computerTurn():
                 turnTaken=1
                 #print("Side move taken")
                 break
-    
+    #Informs the user that the AI has taken it's turn
     if turnTaken == 1:
         print("\nK.A.R.E.N has taken her turn")
 
-#########################################################################################################
 
 
-
+#Function starts the while loop that runs the game until the game is over
 def startGame(firstTurn):
 
     if firstTurn == 0:
@@ -356,6 +366,7 @@ def startGame(firstTurn):
             #printBoard()
             checkGameOver()
 
+#Initalizes the game board and prints out rules and instructions to the user
 def initalizeGame():
     global gameBoard
     gameBoard = [["*","*","*"], ["*","*","*"],["*","*","*"]] 
@@ -367,8 +378,8 @@ def initalizeGame():
     print(" Symbols can be placed by row, columns, or diagonaly.")
     print(" Rows go from left to right. Columns from top to down.")
 
-    choosePlayingSymbol()
-    firstTurn = random.randint(0,1)
+    choosePlayingSymbol() #Player chooses their playing symbol
+    firstTurn = random.randint(0,1) #Whoever goes first is decided at random
 
     if firstTurn == 0:
         print("\nYou Go First")
@@ -377,6 +388,7 @@ def initalizeGame():
         print("\nK.A.R.E.N Goes First")
         startGame(firstTurn)
 
+#Function that asks user if they would like to start a new game
 def startNewGame():
     print("Would you like to start a new game?")
     print(" 1. Yes")
@@ -392,12 +404,14 @@ def startNewGame():
         print("\nInvalid Option.\nPlease Try Again.\n")
         startNewGame()
 
+#Called when game is over and calls the start new game function
 def gameOver():
     startNewGame()
 
+#Main function and start of the whole program
 def main():
     print("\nWelcome To Tic-Tac-Toe!\nAI Edition\n")
     startNewGame()
 
-main()
+main() #starts the program
 

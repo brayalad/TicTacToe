@@ -1,13 +1,14 @@
-from tkinter import *
+from tkinter import * #Used to create the Graphical User Interface
 from tkinter import messagebox
-window=Tk()
-gameBoard =[["*","*","*"], ["*","*","*"],["*","*","*"]]
+window=Tk() #Window that will hold the game
+gameBoard =[["*","*","*"], ["*","*","*"],["*","*","*"]] #Grid representing the game board
 
 window.title("Tic Tac Toe ")
 window.geometry("350x200")
 
 gameFrame = Frame(window)
 
+#Setting up the text around the game board in GUI
 lbl=Label(gameFrame,text="Tic-Tac-Toe Two-Player",font=('Helvetica','15'))
 lbl.grid(row=0,column=0)
 lbl=Label(gameFrame,text="Player 1: X",font=('Helvetica','10'))
@@ -18,6 +19,7 @@ lbl.grid(row=2,column=0)
 
 turn=1 #For first person turn.
 
+#Called when user clicks top left buttom
 def clicked1():
     global turn
     if gameBoard[0][0]=="*":   #For getting the text of a button
@@ -30,6 +32,7 @@ def clicked1():
             gameBoard[0][0]="O"
             topLeft["text"]=gameBoard[0][0]
         check()
+#Called when user clicks top middle button
 def clicked2():
     global turn
     if gameBoard[0][1]=="*":
@@ -42,6 +45,7 @@ def clicked2():
             gameBoard[0][1]="O"
             topMiddle["text"]=gameBoard[0][1]
         check()
+#Called when user clicks top right button
 def clicked3():
     global turn
     if gameBoard[0][2]=="*":
@@ -54,6 +58,7 @@ def clicked3():
             gameBoard[0][2]="O"
             topRight["text"]=gameBoard[0][2]
         check()
+#Called when user clicks center left button
 def clicked4():
     global turn
     if gameBoard[1][0]=="*":
@@ -66,6 +71,7 @@ def clicked4():
             gameBoard[1][0]="O"
             centerLeft["text"]=gameBoard[1][0]
         check()
+#Called when user clicks center button
 def clicked5():
     global turn
     if gameBoard[1][1]=="*":
@@ -78,6 +84,7 @@ def clicked5():
             gameBoard[1][1]="O"
             centerMiddle["text"]=gameBoard[1][1]
         check()
+#Called when user clicks center right button
 def clicked6():
     global turn
     if gameBoard[1][2]=="*":
@@ -90,6 +97,7 @@ def clicked6():
             gameBoard[1][2]="O"
             centerRight["text"]=gameBoard[1][2]
         check()
+#Called when user clicks bottom left button
 def clicked7():
     global turn
     if gameBoard[2][0]=="*":
@@ -102,6 +110,7 @@ def clicked7():
             gameBoard[2][0]="O"
             bottomLeft["text"]=gameBoard[2][0]
         check()
+#Called when user clicks bottom middle button
 def clicked8():
     global turn
     if gameBoard[2][1]=="*":
@@ -114,6 +123,7 @@ def clicked8():
             gameBoard[2][1]="O"
             bottomMiddle["text"]=gameBoard[2][1]
         check()
+#Called when user clicks bottom right button
 def clicked9():
     global turn
     if gameBoard[2][2]=="*":
@@ -126,7 +136,9 @@ def clicked9():
             gameBoard[2][2]="O"
             bottomRight["text"]=gameBoard[2][2]
         check()
-tieFlag = 1
+
+tieFlag = 1 #Global variable to check if board is filled and used to determine a tie
+#Function that checks if a player has won the game
 def check():
     window.update()
 
@@ -142,20 +154,29 @@ def check():
     bottomMiddleValue = gameBoard[2][1]
     bottomRightValue = gameBoard[2][2]
     tieFlag=tieFlag+1
+
+    #checks top row
     if topLeftValue==topMiddleValue and topLeftValue==topRightValue and topLeftValue=="O" or topLeftValue==topMiddleValue and topLeftValue==topRightValue and topLeftValue=="X":
         win(topLeft["text"])
+    #checks center row
     elif centerLeftValue==centerMiddleValue and centerLeftValue==centerRightValue and centerLeftValue=="O" or centerLeftValue==centerMiddleValue and centerLeftValue==centerRightValue and centerLeftValue=="X":
         win(centerLeft["text"])
+    #checks bottom row
     elif bottomLeftValue==bottomMiddleValue and bottomLeftValue==bottomRightValue and bottomLeftValue=="O" or bottomLeftValue==bottomMiddleValue and bottomLeftValue==bottomRightValue and bottomLeftValue=="X":
         win(bottomLeft["text"])
+    #checks left column
     elif topLeftValue==centerLeftValue and topLeftValue==bottomLeftValue and topLeftValue=="O" or topLeftValue==centerLeftValue and topLeftValue==bottomLeftValue and topLeftValue=="X":
         win(topLeft["text"])
+    #checks middle column
     elif topMiddleValue==centerMiddleValue and topMiddleValue==bottomMiddleValue and topMiddleValue=="O" or topMiddleValue==centerMiddleValue and topMiddleValue==bottomMiddleValue and topMiddleValue=="X":
         win(topMiddle["text"])
+    #checks right column
     elif topRightValue==centerRightValue and topRightValue==bottomRightValue and topRightValue=="O" or topRightValue==centerRightValue and topRightValue==bottomRightValue and topRightValue=="X":
         win(topRight["text"])
+    #checks left to right diagonal 
     elif topLeftValue==centerMiddleValue and topLeftValue==bottomRightValue and topLeftValue=="O" or topLeftValue==centerMiddleValue and topLeftValue==bottomRightValue and topLeftValue=="X":
         win(topLeft["text"])
+    #checks right to left diagonal
     elif bottomLeftValue==centerMiddleValue and bottomLeftValue==topRightValue and bottomLeftValue=="O" or bottomLeftValue==centerMiddleValue and bottomLeftValue==topRightValue and bottomLeftValue=="X":
         win(bottomLeft["text"])
     else:
@@ -163,6 +184,7 @@ def check():
             messagebox.showinfo("Tie", "Match Tied!!!  Try again :)")
             window.destroy()
 
+#Prints out the winner to the screen
 def win(player):
     winner = None
     if player == "X":
@@ -172,7 +194,7 @@ def win(player):
     messagebox.showinfo("Congratulations", winner)
     window.destroy()  # is used to close the program
 
-
+#Buttons used to represent the game board are place on a grid in the window of the game screen
 topLeft = Button(gameFrame, text=" ",bg="blue", fg="Black",width=3,height=1,font=('Helvetica','20'),command=clicked1)
 topLeft.grid(column=1, row=1)
 topMiddle = Button(gameFrame, text=" ",bg="blue", fg="Black",width=3,height=1,font=('Helvetica','20'),command=clicked2)
@@ -192,9 +214,9 @@ bottomMiddle.grid(column=2, row=3)
 bottomRight = Button(gameFrame, text=" ",bg="blue", fg="Black",width=3,height=1,font=('Helvetica','20'),command=clicked9)
 bottomRight.grid(column=3, row=3)
 
-
+#Function that runs the game using a loop
 def startGame():
     gameFrame.pack(expand=True)
     window.mainloop()
 
-startGame()
+startGame() #starts program

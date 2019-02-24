@@ -1,6 +1,6 @@
-gameBoard = None
-runLoop = 1
+gameBoard = None #Grid that represents the game board
 
+#Prints out the game board to the console
 def printBoard():
     rowString = ["R","O","W"]
     rowCount = 0
@@ -16,6 +16,7 @@ def printBoard():
             print(column, end=" | ")
         print("\n    - - - - - - -")
 
+#Function that allows the player to take their turn
 def playerTurn(player):
     if player == 1:
         print("\nPLayer One's Turn")
@@ -43,6 +44,7 @@ def playerTurn(player):
         printBoard()
         playerTurn(player)
 
+#Function that checks if a player has won the game
 def checkGameOver():
     tL = gameBoard[0][0]
     tM = gameBoard[0][1]
@@ -53,20 +55,28 @@ def checkGameOver():
     bL = gameBoard[2][0]
     bM = gameBoard[2][1]
     bR = gameBoard[2][2]
+    #Checks top row 
     if tL==tM and tL==tR and tL=="O" or tL==tM and tL==tR and tL=="X":
         winner(tL)
+    #Checks center row
     elif cL==cM and cL==cR and cL=="O" or cL==cM and cL==cR and cL=="X":
         winner(cL)
+    #Checks bottom row
     elif bL==bM and bL==bR and bL=="O" or bL==bM and bL==bR and bL=="X":
         winner(bL)
+    #Checks left column
     elif tL==cL and tL==bL and tL=="O" or tL==cL and tL==bL and tL=="X":
         winner(tL)
+    #Checks middle column
     elif tM==cM and tM==bM and tM=="O" or tM==cM and tM==bM and tM=="X":
         winner(tM)
+    #Checks right column
     elif tR==cR and tR==bR and tR=="O" or tR==cR and tR==bR and tR=="X":
         winner(tR)
+    #Checks left to right diagonal
     elif tL==cM and tL==bR and tL=="O" or tL==cM and tL==bR and tL=="X":
         winner(tL)
+    #Checks right to left diagonal
     elif bL==cM and bL==tR and bL=="O" or bL==cM and bL==tR and bL=="X":
         winner(bL)
     else: 
@@ -80,6 +90,7 @@ def checkGameOver():
             print("GAME OVER\n")
             gameOver()
 
+#If a winner is determined, the game is ended and user is allowed to start a new game
 def winner(player):
     if player == "X":
         print("\nPLAYER ONE WINS")
@@ -88,6 +99,7 @@ def winner(player):
     print("GAMEOVER\n")
     gameOver()
 
+#Initalized the game board grid and prints out the rules and instructions to the user
 def initalizeGame():
     global gameBoard
     gameBoard = [["*","*","*"], ["*","*","*"],["*","*","*"]] 
@@ -102,6 +114,7 @@ def initalizeGame():
 
     startGame()
 
+#Asks user it they would like to start a new game, if so, the game is initialized
 def startNewGame():
     print("Would you like to start a new game?")
     print(" 1. Yes")
@@ -117,9 +130,11 @@ def startNewGame():
         print("\nInvalid Option.\nPlease Try Again.\n")
         startNewGame()
 
+#Called when the game is over and calls the start new game function
 def gameOver():
     startNewGame()
 
+#Function that starts the game and runs the game on a while loop until it is over
 def startGame():
     printBoard()
     while True:
@@ -130,9 +145,10 @@ def startGame():
         printBoard()
         checkGameOver()
 
+#Main function where the program begins
 def main():
     print("\nWelcome To Tic-Tac-Toe!\nTwo-Player Edition\n")
     startNewGame()
 
-main()
+main()#Starts the program
 
